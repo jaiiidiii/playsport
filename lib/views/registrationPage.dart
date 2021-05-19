@@ -1,275 +1,168 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:playsport_app/controllers/baseController.dart';
 import 'package:playsport_app/widgets/buttonWidget.dart';
 import '../utils/global.dart';
 
 class RegistrationPage extends StatelessWidget {
+  final BaseController baseController = Get.find<BaseController>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ThemeConstants.grayBackgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Today',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      '14/05/2021',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 200.0,
-                child: ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (BuildContext context, int index) => buildCard(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Saturday',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      '15/05/2021',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-              ListView.builder(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (ctx, int) {
-                  // return Card(
-
-                  //   child: ListTile(
-                  //     tileColor: Colors.black54,
-
-                  //       title: Text('Baseball'),
-                  //       subtitle: Text('JCC Baseball')),
-                  // );
-                  return buildCardTile(
-                      title: 'Baseball',
-                      subtitle: 'JCC Baseball',
-                      sideColor: Colors.green,
-                      buttonText: 'Book');
-                },
-              ),
-              // Card(
-              //   child: ListTile(
-              //       title: Text('Motivation $int'),
-              //       subtitle: Text('this is a description of the motivation')),
-              // ),
-              // Card(
-              //   child: ListTile(
-              //       title: Text('Motivation $int'),
-              //       subtitle: Text('this is a description of the motivation')),
-              // ),
-              // Card(
-              //   child: ListTile(
-              //       title: Text('Motivation $int'),
-              //       subtitle: Text('this is a description of the motivation')),
-              // ),
-              // Card(
-              //   child: ListTile(
-              //       title: Text('Motivation $int'),
-              //       subtitle: Text('this is a description of the motivation')),
-              // ),
-              // Card(
-              //   child: ListTile(
-              //       title: Text('Motivation $int'),
-              //       subtitle: Text('this is a description of the motivation')),
-              // ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Card buildCard() {
-    return Card(
-      elevation: 0,
-      color: Color(0xFF393948), //Colors.transparent,
-      child: Stack(
-        // overflow: Overflow.visible,
-        // clipBehavior: Clip.hardEdge,
-        children: [
-          Container(
-              width: 130,
-              height: 177,
-              decoration: new BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: Colors.green,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text('Baseball'),
-                  ],
-                ),
-              )),
-          Positioned(
-            bottom: 0,
-            left: 20,
-            child: ButtonWidget(
-              buttonText: "book",
-              highlighlightColor: Colors.orange,
-              onTap: () {
-                // Get.to(MainBottombar());
-              },
-              // width: 100,
-              height: 35,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  buildCardTile(
-      {String title, String subtitle, Color sideColor, String buttonText}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          height: 70,
-          color: Color(0xFF31323f), //Color(0xFF343a40),
-          child: Row(
-            children: <Widget>[
-              Container(
-                color: sideColor,
-                width: 8,
-                height: 70,
-                child: SizedBox(),
-              ),
-              SizedBox(width: 10),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return Obx(() => Scaffold(
+          backgroundColor: ThemeConstants.grayBackgroundColor,
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(title),
-                  Text(subtitle, style: TextStyle(color: Colors.grey))
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Stack(
+                        children: <Widget>[
+                          getImageWidget(),
+                          Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: InkWell(
+                                  onTap: () {
+                                    // photoDialog(context);
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    child: Container(
+                                        color: Colors.grey,
+                                        height: 30,
+                                        width: 30,
+                                        child: Icon(
+                                          Icons.camera_alt,
+                                          size: 15,
+                                          color: Colors.white,
+                                        )),
+                                  ))),
+                        ],
+                      ),
+                    ),
+                  ),
+                  TextFormField(
+                      controller: baseController.nameController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        prefixIcon: Icon(Icons.account_circle_outlined),
+                      )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                      controller: baseController.emailController,
+                      decoration: InputDecoration(
+                        hintText: 'E-Mail',
+                        prefixIcon: Icon(Icons.alternate_email),
+                      )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                      controller: baseController.passwordController,
+                      obscureText: baseController.isPasswordObscure.value,
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: GestureDetector(
+                            onTap: baseController.isPasswordObscure.toggle,
+                            child: Icon(
+                                baseController.isPasswordObscure.value == false
+                                    ? Icons.visibility_off
+                                    : Icons.visibility)),
+                      )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CheckboxListTile(
+                    title: RichText(
+                      text: TextSpan(
+                        text: 'I read and agreed to the ',
+                        style:
+                            TextStyle(color: ThemeConstants.secondaryTextColor),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: 'Terms and Conditions',
+                              style: TextStyle(color: Colors.orange)),
+                        ],
+                      ),
+                    ),
+                    value: baseController.termsCheckbox.value,
+                    activeColor: Colors.orange,
+                    onChanged: (newValue) {
+                      baseController.termsCheckbox(newValue);
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ButtonWidget(
+                    buttonText: 'Sign Up',
+                    highlighlightColor: Colors.orange,
+                    onTap: () {
+                      // Get.to(MainBottombar());
+                    },
+                    width: 150,
+                    // height: ,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Already have an account? ',
+                      style:
+                          TextStyle(color: ThemeConstants.secondaryTextColor),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Sign in',
+                            style: TextStyle(color: Colors.orange)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                          icon: Image.asset("assets/facebook_logo.png"),
+                          onPressed: () {}),
+                      IconButton(
+                          icon: Image.asset("assets/google_logo.png"),
+                          onPressed: () {}),
+                    ],
+                  )
                 ],
               ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text('06:00'),
-                    Text('07:00'),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text('8/10'),
-                    CustomAvatars(),
-                    // Text('07:00'),
-                  ],
-                ),
-              ),
-              ButtonWidget(
-                buttonText: buttonText,
-                highlighlightColor: Colors.orange,
-                onTap: () {
-                  // Get.to(MainBottombar());
-                },
-                // width: 100,
-                height: 30,
-              ),
-              SizedBox(width: 10),
-
-              // Icon(Icons.arrow_forward_ios, color: Colors.blue),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
-}
 
-class CustomAvatars extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 70,
-      height: 40,
-      // color: Colors.white,
-      child: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.centerRight,
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.red,
-                backgroundImage: NetworkImage(
-                    'https://lh3.googleusercontent.com/a-/AOh14GjGG1mLPJ2opacvtSyTqsp3Mmh5Qc2EJC_OplZCOTU'), // Provide your custom image
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.red,
-                backgroundImage: NetworkImage(
-                    'https://lh3.googleusercontent.com/ogw/ADGmqu8S6lepTUr-0Y8fF6sqB-dHK5BUK9dK1dvHa3XEjQ'), // Provide your custom image
-
-                // 'https://bramdejager.files.wordpress.com/2019/05/bramdejager-600x600.png'), // Provide your custom image
-
-                // child: Image.asset('assets\image'), // Provide your custom image
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.red,
-                // child: Image.asset('assets\image'), // Provide your custom image
-                backgroundImage: NetworkImage(
-                    'https://lh3.googleusercontent.com/a-/AOh14GjGG1mLPJ2opacvtSyTqsp3Mmh5Qc2EJC_OplZCOTU'), // Provide your custom image
-              ),
-            ),
-          ),
-        ],
-      ),
+  Widget getImageWidget() {
+    // if (base64Str != null && base64Str.isNotEmpty) {
+    //   return CircleAvatar(
+    //     backgroundColor: ThemeConstants.primaryColor,
+    //     maxRadius: 36.0,
+    //     minRadius: 36.0,
+    //     backgroundImage: MemoryImage(base64Decode(base64Str), scale: 1.0),
+    //   );
+    // } else {
+    return CircleAvatar(
+      backgroundColor: ThemeConstants.grayBackgroundColor,
+      radius: 35.0,
+      // minRadius: 30.0,
+      backgroundImage: AssetImage("assets/ic-default-profile.png"),
     );
+    // }
   }
 }

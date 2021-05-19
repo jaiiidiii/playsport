@@ -46,7 +46,7 @@ class LandingScreen extends StatelessWidget {
                   ButtonWidget(
                     buttonText: 'Start PLAYing',
                     onTap: () {
-                      Get.to(MainBottombar());
+                      Get.off(MainBottombar());
                     },
                     width: 100,
                     height: 50,

@@ -159,7 +159,7 @@ class HomePage extends StatelessWidget {
               buttonText: product.type,
               highlighlightColor: Colors.orange,
               onTap: () {
-                // Get.to(MainBottombar());
+                baseController.currentIndex = 2;
               },
               height: 35,
             ),
@@ -230,7 +230,7 @@ class HomePage extends StatelessWidget {
                 buttonText: product.type,
                 highlighlightColor: Colors.orange,
                 onTap: () {
-                  // Get.to(MainBottombar());
+                  baseController.currentIndex = 2;
                 },
                 height: 30,
               ),

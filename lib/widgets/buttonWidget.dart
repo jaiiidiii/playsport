@@ -17,7 +17,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // width: width != null ? width : double.infinity,
+        width: width,
         height: height,
         decoration: new BoxDecoration(
             border: Border.all(
